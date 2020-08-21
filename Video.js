@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { findNodeHandle, Image, NativeModules, Platform, requireNativeComponent, StyleSheet, View, ViewPropTypes } from 'react-native';
+import { findNodeHandle, Image, NativeModules, Platform, requireNativeComponent, StyleSheet, TouchableHighlight, View, ViewPropTypes } from 'react-native';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 import DRMType from './DRMType';
 import FilterType from './FilterType';
@@ -256,6 +256,14 @@ export default class Video extends Component {
     return NativeModules.UIManager.getViewManagerConfig(viewManagerName);
   };
 
+  _onPosterPress = () => {
+    this.setState({
+      showPoster: false,
+    }, () => {
+      this.setNativeProps({ paused: false})
+    })
+  }
+
   render() {
     const resizeMode = this.props.resizeMode;
     const source = resolveAssetSource(this.props.source) || {};
@@ -339,7 +347,9 @@ export default class Video extends Component {
           style={StyleSheet.absoluteFill}
         />
         {this.state.showPoster && (
-          <Image style={posterStyle} source={{ uri: this.props.poster }} />
+          <TouchableHighlight onPress={_onPosterPress}>
+            <Image style={posterStyle} source={{ uri: this.props.poster }} />
+          </TouchableHighlight>
         )}
       </View>
     );
