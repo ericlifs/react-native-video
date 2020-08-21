@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, requireNativeComponent, NativeModules, View, ViewPropTypes, Image, Platform, findNodeHandle } from 'react-native';
+import React, { Component } from 'react';
+import { findNodeHandle, Image, NativeModules, Platform, requireNativeComponent, StyleSheet, View, ViewPropTypes } from 'react-native';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
-import TextTrackType from './TextTrackType';
-import FilterType from './FilterType';
 import DRMType from './DRMType';
+import FilterType from './FilterType';
+import TextTrackType from './TextTrackType';
 import VideoResizeMode from './VideoResizeMode.js';
 
 const styles = StyleSheet.create({
@@ -170,10 +170,6 @@ export default class Video extends Component {
   };
 
   _onReadyForDisplay = (event) => {
-    if (!this.props.audioOnly) {
-      this._hidePoster();
-    }
-
     if (this.props.onReadyForDisplay) {
       this.props.onReadyForDisplay(event.nativeEvent);
     }
